@@ -86,5 +86,12 @@ public class CustomArrayServiceTest {
         arrayService.selectionSort(array);
         Assert.assertEquals(expected, array);
     }
+    @Test
+    public void testInsertionSort() {
+        CustomArray array = new CustomArray(12, 3, -2,13, -45);
+        CustomArray expected = new CustomArray(-45, -2, 3,12, 13);
+        arrayService.insertionSort(array);
+        Assert.assertEquals(expected, array);
+    }
 
 }

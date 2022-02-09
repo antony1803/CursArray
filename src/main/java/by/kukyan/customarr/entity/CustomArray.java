@@ -20,6 +20,22 @@ public class CustomArray extends CustomCollection{
     }
 
     @Override
+    public void setElement(int place, int element) {
+        if(place>= array.length|| place<0){
+            return;
+        }
+        array[place] = element;
+    }
+
+    @Override
+    public int getElement(int place) {
+        if(place>= array.length|| place<0){
+            return 0;
+        }
+        return array[place];
+    }
+
+    @Override
     public int hashCode(){
         return Arrays.hashCode(array);
     }

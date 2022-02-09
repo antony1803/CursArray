@@ -13,7 +13,7 @@ public interface CustomCollectionService {
     OptionalInt max(CustomCollection customCollection);
     OptionalInt min(CustomCollection customCollection);
     void bubleSort(CustomCollection customCollection);
-
+    void insertionSort(CustomCollection customCollection);
     void selectionSort(CustomCollection customCollection);
     OptionalLong sum(CustomCollection customCollection);
 }

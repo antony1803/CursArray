@@ -2,7 +2,7 @@ package by.kukyan.customarr.service.impl;
 
 import by.kukyan.customarr.service.CustomCollectionService;
 import by.kukyan.customarr.entity.CustomCollection;
-
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.OptionalDouble;
 import java.util.OptionalInt;
@@ -123,6 +123,52 @@ public class CustomArrayService implements CustomCollectionService {
             }
         }
         customCollection.setArray(array);
+    }
+
+    @Override
+    public void insertionSort(CustomCollection customCollection) {
+        int[] array = customCollection.getArray();
+        int key;
+        int lastIndex;
+        int firstIndex;
+
+        for (int i = 0; i < array.length; i++) {
+
+            key = array[i];
+            lastIndex = i;
+            firstIndex = 0;
+
+            lastIndex = binarySearch(firstIndex, lastIndex, array, key);
+
+            for (int j = i; j > lastIndex; j--) {
+                array[j] = array[j - 1];
+            }
+
+            array[lastIndex] = key;
+            customCollection.setArray(array);
+        }
+    }
+
+    private int binarySearch(int firstIndex, int lastIndex, int[] array, int element) {
+        int last;
+        int first;
+        int middle;
+
+        last = lastIndex;
+        first = firstIndex;
+
+        while (first < last){
+
+            middle = first + (last - first)/ 2;
+
+            if (element < array[middle]){
+                last = middle;
+            }else{
+                first = middle + 1;
+            }
+        }
+
+        return first;
     }
 
     @Override
