@@ -1,6 +1,6 @@
 package by.kukyan.customarr.reader.impl;
 
-import by.kukyan.customarr.exception.CustomCollectionExcepion;
+import by.kukyan.customarr.exception.CustomReadException;
 import by.kukyan.customarr.reader.CustomCollectionReader;
 import by.kukyan.customarr.validator.impl.CustomArrayValidator;
 import by.kukyan.customarr.validator.CustomColectionValidator;
@@ -16,7 +16,7 @@ public class CustomArrayReader implements CustomCollectionReader{
     private static  final Logger log = LogManager.getLogger();
 
     @Override
-    public String readCollectionFromFile(String path) throws CustomCollectionExcepion {
+    public String readCollectionFromFile(String path) throws CustomReadException {
         log.info("trying to read the \"{}\" file", path);
         File file = new File(path);
         if (file.exists()&&file.length()==0){
@@ -33,14 +33,14 @@ public class CustomArrayReader implements CustomCollectionReader{
         }
         catch (IOException e){
             log.error(e.getMessage());
-            throw new CustomCollectionExcepion(e);
+            throw new CustomReadException(e);
         }
         log.error("Invalid format of the file " + path);
-        throw new CustomCollectionExcepion("Invalid format of the file "+ path);
+        throw new CustomReadException("Invalid format of the file "+ path);
     }
 
     @Override
-    public String[] readAllCollectionsFromFile(String path) throws CustomCollectionExcepion {
+    public String[] readAllCollectionsFromFile(String path) throws CustomReadException {
         File file = new File(path);
         if(file.exists()&&file.length()==0){
             return new String[]{};
@@ -53,14 +53,14 @@ public class CustomArrayReader implements CustomCollectionReader{
 
         } catch (IOException e) {
             log.error(e.getMessage());
-            throw new CustomCollectionExcepion(e);
+            throw new CustomReadException(e);
         }
 
         if (finalArrString.length != 0) {
             return finalArrString;
         } else {
             log.error("Invalid format of the file " + path);
-            throw new CustomCollectionExcepion("Invalid format of the file " + path);
+            throw new CustomReadException("Invalid format of the file " + path);
         }
     }
 }

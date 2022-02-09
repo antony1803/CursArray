@@ -1,8 +1,8 @@
 package by.kukyan.customarr.reader;
 
-import by.kukyan.customarr.exception.CustomCollectionExcepion;
+import by.kukyan.customarr.exception.CustomReadException;
 
 public interface CustomCollectionReader {
-    String readCollectionFromFile(String path) throws CustomCollectionExcepion;
-    String[] readAllCollectionsFromFile(String path) throws CustomCollectionExcepion;
+    String readCollectionFromFile(String path) throws CustomReadException;
+    String[] readAllCollectionsFromFile(String path) throws CustomReadException;
 }
