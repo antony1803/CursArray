@@ -1,6 +1,6 @@
 package by.kukyan.customarr.service.impl;
 
-import by.kukyan.customarr.CustomAction.impl.CustomArrayActionImplementation;
+import by.kukyan.customarr.customaction.impl.CustomArrayActionImplementation;
 import by.kukyan.customarr.entity.CustomArray;
 import by.kukyan.customarr.entity.CustomArrayStatistics;
 import by.kukyan.customarr.entity.Warehouse;

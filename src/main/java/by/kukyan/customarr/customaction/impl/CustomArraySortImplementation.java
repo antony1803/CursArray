@@ -1,6 +1,6 @@
-package by.kukyan.customarr.CustomAction.impl;
+package by.kukyan.customarr.customaction.impl;
 
-import by.kukyan.customarr.CustomAction.CustomArraySort;
+import by.kukyan.customarr.customaction.CustomArraySort;
 import by.kukyan.customarr.entity.CustomArray;
 
 import java.util.Random;

@@ -1,8 +1,7 @@
-package by.kukyan.customarr.CustomAction.impl;
+package by.kukyan.customarr.customaction.impl;
 
-import by.kukyan.customarr.CustomAction.CustomArrayAction;
+import by.kukyan.customarr.customaction.CustomArrayAction;
 import by.kukyan.customarr.entity.CustomArray;
-import by.kukyan.customarr.entity.Warehouse;
 
 
 import java.util.*;

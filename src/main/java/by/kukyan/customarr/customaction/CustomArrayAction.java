@@ -1,4 +1,4 @@
-package by.kukyan.customarr.CustomAction;
+package by.kukyan.customarr.customaction;
 
 import by.kukyan.customarr.entity.CustomArray;
 
