@@ -1,5 +1,6 @@
 package by.kukyan.customarr.service.impl;
 
+import by.kukyan.customarr.CustomAction.impl.CustomArraySortImplementation;
 import by.kukyan.customarr.service.CustomCollectionService;
 import by.kukyan.customarr.entity.CustomCollection;
 import java.util.Arrays;
@@ -108,20 +109,7 @@ public class CustomArrayService implements CustomCollectionService {
     public void bubleSort(CustomCollection customCollection) {
         int[] array = customCollection.getArray();
         boolean hasSwitched;
-        for (int i = array.length; i > 0; i--) {
-            hasSwitched = false;
-            for (int j = 0; j < i - 1; j++) {
-                if (array[j] > array[j + 1]) {
-                    int temp = array[j];
-                    array[j] = array[j + 1];
-                    array[j + 1] = temp;
-                    hasSwitched = true;
-                }
-            }
-            if (!hasSwitched) {
-                break;
-            }
-        }
+        CustomArraySortImplementation.bubleCykle(array);
         customCollection.setArray(array);
     }
 
@@ -146,6 +134,7 @@ public class CustomArrayService implements CustomCollectionService {
 
             array[lastIndex] = key;
             customCollection.setArray(array);
+
         }
     }
 

@@ -42,7 +42,7 @@ public class CustomArrayReader implements CustomCollectionReader{
     @Override
     public String[] readAllCollectionsFromFile(String path) throws CustomReadException {
         File file = new File(path);
-        if(file.exists()&&file.length()==0){
+        if (file.exists() && file.length() == 0) {
             return new String[]{};
         }
         String finalArrString[] = new String[]{};

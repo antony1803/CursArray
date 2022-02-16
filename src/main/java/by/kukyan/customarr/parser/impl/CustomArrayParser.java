@@ -9,20 +9,19 @@ import org.apache.logging.log4j.Logger;
 import java.text.ParseException;
 
 public class CustomArrayParser implements CustomCollectionParser{
-
+    private static final String REGEX_LIMITTER = "\\s";
     private static final Logger logger = LogManager.getLogger();
     @Override
     public int[] parseStringToArrayOfInts(String str) throws  CustomParseException{
-        if(str.isBlank()){
+         if(str.isBlank()){
             return new int[0];
         }
-        String[] arrOfNumbersInString = str.split("\\s");
+        String[] arrOfNumbersInString = str.split(REGEX_LIMITTER);
         int[] result = new int[arrOfNumbersInString.length];
         for(int i = 0; i<arrOfNumbersInString.length; i++){
             try{
                 result[i]= Integer.parseInt(arrOfNumbersInString[i]);
-            }
-            catch (NumberFormatException e){
+            }catch (NumberFormatException e){
                 logger.error("invalid file format", e);
                 throw new CustomParseException("invalid file format");
             }

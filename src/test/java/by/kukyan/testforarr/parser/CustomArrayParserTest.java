@@ -33,4 +33,68 @@ public class CustomArrayParserTest {
     public void testParseValueException() throws CustomParseException {
         arrayParser.parseStringToArrayOfInts(WRONG_VALUE_TO_ARRAY);
     }
+
+    @Test
+    public void testGetArray() {
+    }
+
+    @Test
+    public void testSetArray() {
+    }
+
+    @Test
+    public void testSetElement() {
+    }
+
+    @Test
+    public void testGetElement() {
+    }
+
+    @Test
+    public void testGetArrayLength() {
+    }
+
+    @Test
+    public void testSetId() {
+    }
+
+    @Test
+    public void testGetId() {
+    }
+
+    @Test
+    public void testGetCustomArrayObserver() {
+    }
+
+    @Test
+    public void testTestEquals() {
+    }
+
+    @Test
+    public void testSetCustomArrayObserver() {
+    }
+
+    @Test
+    public void testTestHashCode() {
+    }
+
+    @Test
+    public void testTestEquals1() {
+    }
+
+    @Test
+    public void testTestToString() {
+    }
+
+    @Test
+    public void testAttach() {
+    }
+
+    @Test
+    public void testDetach() {
+    }
+
+    @Test
+    public void testNotifyObserver() {
+    }
 }
