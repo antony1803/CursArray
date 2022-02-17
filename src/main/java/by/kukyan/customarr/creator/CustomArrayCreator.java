@@ -9,13 +9,13 @@ public class CustomArrayCreator {
         return new CustomArray(newId, arr);
     }
 
-    public CustomArray createRandomArray (){
+    public CustomArray createRandomArray (int lengthBoundary, int elementBoudary){
         Random rnd = new Random();
-        int lenght = rnd.nextInt(100);
+        int length = rnd.nextInt(lengthBoundary);
         int id = rnd.nextInt(100000);
-        int[] arr = new int[lenght];
-        for(int i = 0; i < lenght; i++){
-            arr[i] = rnd.nextInt(50);
+        int[] arr = new int[length];
+        for(int i = 0; i < length; i++){
+            arr[i] = rnd.nextInt(elementBoudary);
         }
         return new CustomArray(id, arr);
     }
