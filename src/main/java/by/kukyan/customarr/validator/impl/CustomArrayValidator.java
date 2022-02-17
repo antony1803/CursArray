@@ -6,8 +6,8 @@ import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 public class CustomArrayValidator implements CustomColectionValidator {
-    private static CustomColectionValidator instance = null;
-    private static final String REGEX_FOR_VALIDATION = "^([+-]?\\\\d+\\\\s+)*([+-]?\\\\d+)?$";
+    private static CustomColectionValidator instance;
+    private static final String REGEX_FOR_VALIDATION = "^([+-]?\\d+\\s+)*([+-]?\\d+)?$";
 
     @Override
     public boolean validate(String array) {
