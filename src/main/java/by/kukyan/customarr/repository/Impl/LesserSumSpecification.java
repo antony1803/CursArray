@@ -4,15 +4,18 @@ import by.kukyan.customarr.entity.CustomArray;
 import by.kukyan.customarr.repository.Specification;
 import by.kukyan.customarr.customaction.impl.CustomArrayActionImplementation;
 
-public class SumSpecification implements Specification{
+public class LesserSumSpecification implements Specification{
     private long sum;
-    public SumSpecification(long temp){
+    public LesserSumSpecification(long temp){
         sum = temp;
     }
 
     @Override
     public boolean specify(CustomArray customArray) {
-        CustomArrayActionImplementation customArrayActionImplementation = new CustomArrayActionImplementation();
+        var customArrayActionImplementation = new CustomArrayActionImplementation();
+        if(!(customArrayActionImplementation.getSum(customArray)).isPresent()){
+            return false;
+        }
         return (customArrayActionImplementation.getSum(customArray)).getAsLong() < sum;
     }
 }

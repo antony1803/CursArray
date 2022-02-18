@@ -1,5 +1,6 @@
 package by.kukyan.customarr.repository.Impl;
 
+import by.kukyan.customarr.comparator.CustomArrayComparatorById;
 import by.kukyan.customarr.entity.CustomArray;
 import by.kukyan.customarr.repository.Specification;
 import by.kukyan.customarr.repository.CustomCollectionRepository;
@@ -21,7 +22,6 @@ public class CustomArrayRepository implements CustomCollectionRepository {
         }
         return instance;
     }
-
 
     public int getSize(){
         return arrays.size();

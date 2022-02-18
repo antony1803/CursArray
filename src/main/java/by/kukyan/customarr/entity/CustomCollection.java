@@ -1,25 +1,49 @@
 package by.kukyan.customarr.entity;
 
 import by.kukyan.customarr.observer.CustomArrayObservable;
-import by.kukyan.customarr.observer.CustomCollectionObserver;
-import by.kukyan.customarr.observer.impl.CustomArrayObserver;
 
+import java.util.Arrays;
 import java.util.OptionalInt;
 
 public abstract class CustomCollection implements CustomArrayObservable {
     protected int[] array;
-    protected int id;
+    private int id;
+
     public  CustomCollection(){};
+
     public  CustomCollection(int newId){
         id = newId;
     }
-    protected CustomCollectionObserver customCollectionObserver;
-    public abstract int[] getArray();
-    public abstract void setArray(int...array);
-    public abstract  void setElement(int place, int element);
-    public abstract OptionalInt getElement(int place);
-    public abstract void setId(int newId);
-    public abstract int getId();
-    public abstract CustomCollectionObserver getCustomArrayObserver();
-    public abstract void setCustomArrayObserver(CustomCollectionObserver customArrayObserver);
+
+    public int[] getArray(){
+        return Arrays.copyOf(array, array.length);
+    }
+
+    public void setArray(int...temp){
+        array = Arrays.copyOf(temp, temp.length);
+    }
+
+    public OptionalInt getElement(int place) {
+
+        if (place >= array.length || place < 0) {
+            return OptionalInt.empty();
+        }
+        return OptionalInt.of(array[place]);
+    }
+
+    public void setElement(int place, int element) {
+        if(place >= array.length|| place<0){
+            return;
+        }
+        array[place] = element;
+    }
+
+    public void setId(int newId){
+        id = newId;
+    }
+
+    public int getId(){
+        return id;
+    }
+
 }

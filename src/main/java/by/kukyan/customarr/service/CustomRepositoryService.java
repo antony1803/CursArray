@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface CustomRepositoryService {
 
-    void addArrayInRepo(CustomArray array);
+    void addArrayInRepository(CustomArray array);
 
-    void addNumberInRepo(int... args);
+    void addNumbersInRepository(int... args);
 
-    void addListInRepo(List<CustomArray> arrayEntities);
+    void addListInRepository(List<CustomArray> arrayEntities);
 }

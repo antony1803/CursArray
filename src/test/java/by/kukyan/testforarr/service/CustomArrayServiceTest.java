@@ -76,7 +76,7 @@ public class CustomArrayServiceTest {
     public void testBubbleSort() {
         CustomArray array = new CustomArray(12, 3, -2,13, -45);
         CustomArray expected = new CustomArray(-45, -2, 3,12, 13);
-        arrayService.bubleSort(array);
+        arrayService.bubbleSort(array);
         Assert.assertEquals(expected, array);
     }
     @Test

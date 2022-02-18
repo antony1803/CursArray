@@ -10,11 +10,11 @@ import java.util.Map;
 public class Warehouse {
     private static final Logger logger = LogManager.getLogger();
     private static Warehouse instance;
-    private final Map<Long, CustomArrayStatistics> mapStatistics;
+    private final Map<Integer, CustomArrayStatistics> mapStatistics;
 
 
     public Warehouse() {
-        this.mapStatistics = new HashMap<>();
+        this.mapStatistics = new HashMap<Integer, CustomArrayStatistics>();
     }
 
     public static Warehouse getInstance(){
@@ -34,7 +34,7 @@ public class Warehouse {
         }
     }
 
-    public CustomArrayStatistics putById(Long arrayId, CustomArrayStatistics statistics) {
+    public CustomArrayStatistics putById(Integer arrayId, CustomArrayStatistics statistics) {
         return mapStatistics.put(arrayId, statistics);
     }
 
@@ -47,7 +47,7 @@ public class Warehouse {
         }
     }
 
-    public CustomArrayStatistics clearValue(long arrayId) throws CustomCollectionExcepion {
+    public CustomArrayStatistics clearValue(int arrayId) throws CustomCollectionExcepion {
         if(mapStatistics.containsKey(arrayId)){
             return mapStatistics.replace(arrayId, new CustomArrayStatistics());
         } else {

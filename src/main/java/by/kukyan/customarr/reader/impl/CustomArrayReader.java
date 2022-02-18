@@ -49,7 +49,7 @@ public class CustomArrayReader implements CustomCollectionReader{
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
 
             CustomColectionValidator validator = CustomArrayValidator.getInstance();
-            finalArrString = bufferedReader.lines().filter(validator::validate).toArray(String[]::new);
+            finalArrString = bufferedReader.lines().filter(validator::validateArray).toArray(String[]::new);
 
         } catch (IOException e) {
             log.error(e.getMessage());

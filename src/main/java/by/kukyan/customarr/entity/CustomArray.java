@@ -5,14 +5,14 @@ import by.kukyan.customarr.observer.impl.CustomArrayEvent;
 import by.kukyan.customarr.observer.impl.CustomArrayObserver;
 
 import java.util.Arrays;
-import java.util.OptionalInt;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class CustomArray extends CustomCollection{
-
     private static final Logger logger = LogManager.getLogger();
+    private CustomArrayObserver customArrayObserver;
+
     public CustomArray(){
         super();
     };
@@ -21,58 +21,10 @@ public class CustomArray extends CustomCollection{
         array = Arrays.copyOf(arr, arr.length);
     }
 
-    @Override
-    public int [] getArray(){
-
-        return Arrays.copyOf(array, array.length);
-    }
-    @Override
-    public void setArray(int ... arr){
-        array = Arrays.copyOf(arr, arr.length);
-    }
-
-    @Override
-    public void setElement(int place, int element) {
-        if(place>= array.length|| place<0){
-            return;
-        }
-        array[place] = element;
-    }
-
-    @Override
-    public OptionalInt getElement(int place) {
-
-        if (place >= array.length || place < 0) {
-            return OptionalInt.empty();
-        }
-        return OptionalInt.of(array[place]);
-    }
-
     public int getArrayLength(){
         return array.length;
     }
 
-    @Override
-    public void setId(int newId) {
-        id = newId;
-    }
-
-    @Override
-    public int getId() {
-        return id;
-    }
-
-    @Override
-    public CustomCollectionObserver getCustomArrayObserver() {
-        return customCollectionObserver;
-    }
-
-
-
-    @Override
-    public void setCustomArrayObserver(CustomCollectionObserver newCustomArrayObserver) {
-        customCollectionObserver = newCustomArrayObserver;
-    }
 
     @Override
     public int hashCode(){
@@ -83,9 +35,9 @@ public class CustomArray extends CustomCollection{
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (this == null) return false;
-        if (this.getClass() != obj.getClass()) return false;
+        if (getClass() != obj.getClass()) return false;
         CustomArray otherArray = (CustomArray) obj;
-        if (!Arrays.equals(otherArray.array, this.array))
+        if (!(Arrays.equals(otherArray.array, array) || otherArray.getId() != getId()))
             return false;
         return true;
     }
@@ -100,32 +52,41 @@ public class CustomArray extends CustomCollection{
 
     @Override
     public void attach(CustomCollectionObserver observer) {
-        if(customCollectionObserver == null){
-            customCollectionObserver = observer;
+        if(customArrayObserver == null){
+            customArrayObserver = (CustomArrayObserver)observer;
         } else {
-            logger.error("observer already used");
+            logger.error("Observer had been attached already");
         }
     }
 
     @Override
     public void detach(CustomCollectionObserver observer) {
-        if(customCollectionObserver != null){
-            customCollectionObserver = null;
+        if(customArrayObserver != null){
+            customArrayObserver = null;
         } else {
-            logger.error("observer not used");
+            logger.error("Observer hab not been used");
         }
     }
 
     @Override
     public void notifyObserver() {
         CustomArrayEvent event = new CustomArrayEvent(this);
-        if (customCollectionObserver != null) {
-            customCollectionObserver.replaceStatistic(event);
-            customCollectionObserver.updateAvg(event);
-            customCollectionObserver.updateSum(event);
-            customCollectionObserver.updateMax(event);
-            customCollectionObserver.updateMin(event);
+        if (customArrayObserver != null) {
+            customArrayObserver.replaceStatistic(event);
+            customArrayObserver.updateAvg(event);
+            customArrayObserver.updateSum(event);
+            customArrayObserver.updateMax(event);
+            customArrayObserver.updateMin(event);
         }
     }
+
+    public CustomArrayObserver getCustomCollectionObserver(){
+        return customArrayObserver;
+    }
+
+    public void setCustomArrayObserver(CustomArrayObserver newCustomCollectionObserver){
+        customArrayObserver = newCustomCollectionObserver;
+    }
+
 }
 

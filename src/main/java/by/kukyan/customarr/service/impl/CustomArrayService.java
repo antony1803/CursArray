@@ -105,10 +105,10 @@ public class CustomArrayService implements CustomCollectionService {
     }
 
     @Override
-    public void bubleSort(CustomCollection customCollection) {
+    public void bubbleSort(CustomCollection customCollection) {
         int[] array = customCollection.getArray();
         boolean hasSwitched;
-        CustomArraySortImplementation.bubleCykle(array);
+        CustomArraySortImplementation.bubbleCycle(array);
         customCollection.setArray(array);
     }
 

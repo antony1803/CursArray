@@ -2,7 +2,7 @@ package by.kukyan.customarr.customaction.impl;
 
 import by.kukyan.customarr.customaction.CustomArrayAction;
 import by.kukyan.customarr.entity.CustomArray;
-
+import by.kukyan.customarr.service.impl.CustomArrayIdGenerator;
 
 import java.util.*;
 import java.util.stream.IntStream;
@@ -18,46 +18,43 @@ public class CustomArrayActionImplementation implements CustomArrayAction {
         return instance;
     }
 
-
-    public IntStream convertToIntStream(CustomArray customArray){
-        int[] numbers = customArray.getArray();
-        return Arrays.stream(numbers);
-    }
-
     @Override
     public OptionalInt getMin(CustomArray customArray) {
-        IntStream minimum = convertToIntStream(customArray);
-        return minimum.min();
+        int [] arr = customArray.getArray();
+        return Arrays.stream(arr, 0, arr.length).min();
     }
 
     @Override
     public OptionalInt getMax(CustomArray customArray) {
-        IntStream maximum = convertToIntStream(customArray);
-        return maximum.max();
+        int [] arr = customArray.getArray();
+        return Arrays.stream(arr, 0, arr.length).max();
     }
 
     @Override
     public OptionalDouble getAvg(CustomArray customArray) {
-        IntStream avg = convertToIntStream(customArray);
-        return avg.average();
+        int [] arr = customArray.getArray();
+        return Arrays.stream(arr, 0, arr.length).average();
     }
 
     @Override
     public OptionalLong getSum(CustomArray customArray) {
-        IntStream temp = convertToIntStream(customArray);
-        return OptionalLong.of(temp.sum());
+        int [] arr = customArray.getArray();
+        if(arr.length == 0){
+            return OptionalLong.empty();
+        }
+        return OptionalLong.of(Arrays.stream(arr, 0, arr.length).sum());
     }
 
     @Override
     public long getNumberOfPositive(CustomArray customArray) {
-        IntStream temp = convertToIntStream(customArray);
-        return temp.filter(i -> (i > 0)).count();
+        int [] arr = customArray.getArray();
+        return Arrays.stream(arr, 0, arr.length).filter(el -> (el > 0)).count();
     }
 
     @Override
     public long getNumberOfNegative(CustomArray customArray) {
-        IntStream temp = convertToIntStream(customArray);
-        return temp.filter(i -> (i < 0)).count();
+        int [] arr = customArray.getArray();
+        return Arrays.stream(arr, 0, arr.length).filter(el -> (el < 0)).count();
     }
 
     @Override
@@ -66,15 +63,14 @@ public class CustomArrayActionImplementation implements CustomArrayAction {
             return customArray;
         }
         CustomArray newCustomArray;
-        int[] numbers = customArray.getArray();
-        IntStream minus = IntStream.of(numbers).map(i -> {
-            if (i == elementToChange) {
-                i = newElement;
+        int[] array = customArray.getArray();
+        IntStream replacementStream = IntStream.of(array).map(el -> {
+            if (el == elementToChange) {
+                el = newElement;
             }
-            return i;
+            return el;
         });
-        Random rnd = new Random();
-        newCustomArray = new CustomArray(rnd.nextInt(100000), minus.toArray());
+        newCustomArray = new CustomArray(CustomArrayIdGenerator.getNextId(), replacementStream.toArray());
         return newCustomArray;
     }
 }

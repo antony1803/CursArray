@@ -1,21 +1,20 @@
 package by.kukyan.customarr.customaction.impl;
 
+import by.kukyan.customarr.creator.CustomArrayCreator;
 import by.kukyan.customarr.customaction.CustomArraySort;
 import by.kukyan.customarr.entity.CustomArray;
+import by.kukyan.customarr.service.impl.CustomArrayIdGenerator;
 
-import java.util.Random;
 
 public class CustomArraySortImplementation implements CustomArraySort {
     @Override
-    public CustomArray bubleSort(CustomArray customArray) {
+    public CustomArray bubbleSort(CustomArray customArray) {
         int[] array = customArray.getArray();
-        boolean unsorted = true;
-        bubleCykle(array);
-        Random rnd = new Random();
-        return new CustomArray(rnd.nextInt(100000), array);
+        bubbleCycle(array);
+        return CustomArrayCreator.createArray(CustomArrayIdGenerator.getNextId(), array);
     }
 
-    public static void bubleCykle(int[] array) {
+    public static void bubbleCycle(int[] array) {
         boolean unsorted;
         for (int i = array.length; i > 0; i--) {
             unsorted = false;

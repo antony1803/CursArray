@@ -6,12 +6,11 @@ import by.kukyan.customarr.repository.Impl.CustomArrayRepository;
 
 
 import java.util.List;
-import java.util.Random;
 
 public class CustomRepositoryServiceImplementation implements CustomRepositoryService {
 
     @Override
-    public void addArrayInRepo(CustomArray array){
+    public void addArrayInRepository(CustomArray array){
         CustomArrayRepository arrayRepository = CustomArrayRepository.getInstance();
         arrayRepository.addArray(array);
         CustomWarehouseServiceImplementation filler = new CustomWarehouseServiceImplementation();
@@ -19,16 +18,15 @@ public class CustomRepositoryServiceImplementation implements CustomRepositorySe
     }
 
     @Override
-    public void addNumberInRepo(int... args){
-        Random rnd = new Random();
-        CustomArray array = new CustomArray(rnd.nextInt(100000), args);
-        addArrayInRepo(array);
+    public void addNumbersInRepository(int... args){
+        CustomArray array = new CustomArray(CustomArrayIdGenerator.getNextId(), args);
+        addArrayInRepository(array);
     }
 
     @Override
-    public void addListInRepo(List<CustomArray> customArrays){
+    public void addListInRepository(List<CustomArray> customArrays){
         for (CustomArray array: customArrays) {
-            addArrayInRepo(array);
+            addArrayInRepository(array);
         }
     }
 

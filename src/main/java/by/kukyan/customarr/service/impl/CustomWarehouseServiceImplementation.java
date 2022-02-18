@@ -13,7 +13,7 @@ public class CustomWarehouseServiceImplementation implements CustomWarehouseServ
 
     @Override
     public void putArrayInWarehouse(CustomArray array){
-        long id = array.getId();
+        int id = array.getId();
         CustomArrayActionImplementation action = CustomArrayActionImplementation.getInstance();
         OptionalLong sum = action.getSum(array);
         OptionalInt min = action.getMin(array);
@@ -22,15 +22,10 @@ public class CustomWarehouseServiceImplementation implements CustomWarehouseServ
         CustomArrayStatistics statistics = new CustomArrayStatistics();
         if(sum.isPresent()) {
             statistics.setSum(sum.getAsLong());
-        }
-        if(min.isPresent()){
-            statistics.setMin(min.getAsInt());
-        }
-        if(max.isPresent()){
-            statistics.setMax(max.getAsInt());
-        }
-        if(avg.isPresent()){
             statistics.setAvg(avg.getAsDouble());
+            statistics.setMax(max.getAsInt());
+            statistics.setMin(min.getAsInt());
+            //Присутствует один параметр, присутствуют все
         }
         Warehouse warehouse = Warehouse.getInstance();
         warehouse.putById(id, statistics);

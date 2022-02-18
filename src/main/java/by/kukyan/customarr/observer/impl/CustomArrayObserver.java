@@ -17,11 +17,10 @@ import java.util.OptionalInt;
 public class CustomArrayObserver implements CustomCollectionObserver {
     private static final Logger logger = LogManager.getLogger();
 
-
     public void replaceStatistic(CustomArrayEvent event){
         try {
             CustomArray source = event.getSource();
-            long sourceId = source.getId();
+            int sourceId = source.getId();
             Warehouse warehouse = Warehouse.getInstance();
             warehouse.clearValue(sourceId);
         } catch (CustomCollectionExcepion e) {
@@ -30,12 +29,11 @@ public class CustomArrayObserver implements CustomCollectionObserver {
         }
     }
 
-
     @Override
     public void updateMin(CustomArrayEvent event) {
         try {
             CustomArray source = event.getSource();
-            long sourceId = source.getId();
+            int sourceId = source.getId();
             Warehouse warehouse = Warehouse.getInstance();
             CustomArrayStatistics statistics = warehouse.getById(sourceId);
             CustomArrayActionImplementation action = CustomArrayActionImplementation.getInstance();
@@ -52,7 +50,7 @@ public class CustomArrayObserver implements CustomCollectionObserver {
     public void updateMax(CustomArrayEvent event) {
         try {
             CustomArray source = event.getSource();
-            long sourceId = source.getId();
+            int sourceId = source.getId();
             Warehouse warehouse = Warehouse.getInstance();
             CustomArrayStatistics statistics = warehouse.getById(sourceId);
             CustomArrayActionImplementation action = new CustomArrayActionImplementation();
@@ -69,7 +67,7 @@ public class CustomArrayObserver implements CustomCollectionObserver {
     public void updateAvg(CustomArrayEvent event) {
         try {
             CustomArray source = event.getSource();
-            long sourceId = source.getId();
+            int sourceId = source.getId();
             Warehouse warehouse = Warehouse.getInstance();
             CustomArrayStatistics statistics = warehouse.getById(sourceId);
             CustomArrayActionImplementation action = new CustomArrayActionImplementation();
@@ -86,7 +84,7 @@ public class CustomArrayObserver implements CustomCollectionObserver {
     public void updateSum(CustomArrayEvent event) {
         try {
             CustomArray source = event.getSource();
-            long sourceId = source.getId();
+            int sourceId = source.getId();
             Warehouse warehouse = Warehouse.getInstance();
             CustomArrayStatistics statistics = warehouse.getById(sourceId);
             CustomArrayActionImplementation action = new CustomArrayActionImplementation();

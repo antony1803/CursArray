@@ -10,7 +10,9 @@ public class CustomArrayStatistics {
     private OptionalInt min;
     private OptionalDouble avg;
     private OptionalLong sum;
+
     public CustomArrayStatistics(){}
+
     public  CustomArrayStatistics(int newMax, int newMin, double newAvg, long newSum){
         max = OptionalInt.of(newMax);
         min = OptionalInt.of(newMin);
@@ -29,6 +31,7 @@ public class CustomArrayStatistics {
     public void setMin(int newMax){
         min = OptionalInt.of(newMax);
     }
+
     public OptionalInt getMin(){
         return min;
     }

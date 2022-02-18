@@ -1,21 +1,24 @@
 package by.kukyan.customarr.creator;
 
 import by.kukyan.customarr.entity.CustomArray;
+import by.kukyan.customarr.service.impl.CustomArrayIdGenerator;
 
 import java.util.Random;
 
 public class CustomArrayCreator {
-    public CustomArray createArray (int newId, int ... arr){
+    private CustomArrayCreator(){}
+
+    public static CustomArray createArray (int newId, int ... arr){
         return new CustomArray(newId, arr);
     }
 
-    public CustomArray createRandomArray (int lengthBoundary, int elementBoudary){
+    public static CustomArray createRandomArray (int lengthBoundary, int elementBoundary){
         Random rnd = new Random();
         int length = rnd.nextInt(lengthBoundary);
-        int id = rnd.nextInt(100000);
+        int id = CustomArrayIdGenerator.getNextId();
         int[] arr = new int[length];
         for(int i = 0; i < length; i++){
-            arr[i] = rnd.nextInt(elementBoudary);
+            arr[i] = rnd.nextInt(elementBoundary);
         }
         return new CustomArray(id, arr);
     }
