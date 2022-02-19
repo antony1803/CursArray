@@ -1,13 +1,12 @@
 package by.kukyan.customarr.observer.impl;
 
-import by.kukyan.customarr.customaction.impl.CustomArrayActionImplementation;
-
 import by.kukyan.customarr.entity.CustomArray;
-import by.kukyan.customarr.entity.CustomArrayStatistics;
+import by.kukyan.customarr.entity.CustomArrayParameters;
 import by.kukyan.customarr.entity.Warehouse;
 import by.kukyan.customarr.exception.CustomCollectionExcepion;
 import by.kukyan.customarr.observer.CustomCollectionObserver;
 
+import by.kukyan.customarr.service.impl.CustomArrayService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -35,9 +34,9 @@ public class CustomArrayObserver implements CustomCollectionObserver {
             CustomArray source = event.getSource();
             int sourceId = source.getId();
             Warehouse warehouse = Warehouse.getInstance();
-            CustomArrayStatistics statistics = warehouse.getById(sourceId);
-            CustomArrayActionImplementation action = CustomArrayActionImplementation.getInstance();
-            OptionalInt min = action.getMin(source);
+            CustomArrayParameters statistics = warehouse.getById(sourceId);
+            CustomArrayService action = CustomArrayService.getInstance();
+            OptionalInt min = action.min(source);
             if (min.isPresent()){
                 statistics.setMin(min.getAsInt());
             }
@@ -52,9 +51,9 @@ public class CustomArrayObserver implements CustomCollectionObserver {
             CustomArray source = event.getSource();
             int sourceId = source.getId();
             Warehouse warehouse = Warehouse.getInstance();
-            CustomArrayStatistics statistics = warehouse.getById(sourceId);
-            CustomArrayActionImplementation action = new CustomArrayActionImplementation();
-            OptionalInt max = action.getMax(source);
+            CustomArrayParameters statistics = warehouse.getById(sourceId);
+            CustomArrayService action = CustomArrayService.getInstance();
+            OptionalInt max = action.max(source);
             if (max.isPresent()){
                 statistics.setMax(max.getAsInt());
             }
@@ -69,9 +68,9 @@ public class CustomArrayObserver implements CustomCollectionObserver {
             CustomArray source = event.getSource();
             int sourceId = source.getId();
             Warehouse warehouse = Warehouse.getInstance();
-            CustomArrayStatistics statistics = warehouse.getById(sourceId);
-            CustomArrayActionImplementation action = new CustomArrayActionImplementation();
-            OptionalDouble avg = action.getAvg(source);
+            CustomArrayParameters statistics = warehouse.getById(sourceId);
+            CustomArrayService action = CustomArrayService.getInstance();
+            OptionalDouble avg = action.avg(source);
             if (avg.isPresent()){
                 statistics.setAvg(avg.getAsDouble());
             }
@@ -86,9 +85,9 @@ public class CustomArrayObserver implements CustomCollectionObserver {
             CustomArray source = event.getSource();
             int sourceId = source.getId();
             Warehouse warehouse = Warehouse.getInstance();
-            CustomArrayStatistics statistics = warehouse.getById(sourceId);
-            CustomArrayActionImplementation action = new CustomArrayActionImplementation();
-            statistics.setSum((action.getSum(source)).getAsLong());
+            CustomArrayParameters statistics = warehouse.getById(sourceId);
+            CustomArrayService action = CustomArrayService.getInstance();
+            statistics.setSum((action.sum(source)).getAsLong());
         } catch (CustomCollectionExcepion e) {
             logger.error(e.getMessage());
             e.printStackTrace();

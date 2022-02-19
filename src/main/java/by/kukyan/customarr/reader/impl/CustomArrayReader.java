@@ -11,6 +11,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class CustomArrayReader implements CustomCollectionReader{
 
     private static  final Logger log = LogManager.getLogger();
@@ -19,19 +22,19 @@ public class CustomArrayReader implements CustomCollectionReader{
     public String readCollectionFromFile(String path) throws CustomReadException {
         log.info("trying to read the \"{}\" file", path);
         File file = new File(path);
-        if (file.exists()&&file.length()==0){
+        if (file.exists() && file.length()==0){
             return "";
         }
         try(BufferedReader bufferedReader = new BufferedReader(new FileReader(file))){
             CustomColectionValidator validator = CustomArrayValidator.getInstance();
 
-            String str = "";
-            while((str = bufferedReader.readLine())!=null)
-            {
-                return str;
+            String str;
+            while((str = bufferedReader.readLine()) != null) {
+                if(validator.validateArray(str)) {
+                    return str;
+                }
             }
-        }
-        catch (IOException e){
+        }catch (IOException e){
             log.error(e.getMessage());
             throw new CustomReadException(e);
         }
@@ -40,24 +43,24 @@ public class CustomArrayReader implements CustomCollectionReader{
     }
 
     @Override
-    public String[] readAllCollectionsFromFile(String path) throws CustomReadException {
+    public ArrayList<String> readAllCollectionsFromFile(String path) throws CustomReadException {
         File file = new File(path);
+        ArrayList<String> result = new ArrayList<>();
         if (file.exists() && file.length() == 0) {
-            return new String[]{};
+            return result;
         }
-        String finalArrString[] = new String[]{};
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
 
             CustomColectionValidator validator = CustomArrayValidator.getInstance();
-            finalArrString = bufferedReader.lines().filter(validator::validateArray).toArray(String[]::new);
+            result.addAll(bufferedReader.lines().filter(validator::validateArray).toList());
 
         } catch (IOException e) {
             log.error(e.getMessage());
             throw new CustomReadException(e);
         }
 
-        if (finalArrString.length != 0) {
-            return finalArrString;
+        if (result.size() != 0) {
+            return result;
         } else {
             log.error("Invalid format of the file " + path);
             throw new CustomReadException("Invalid format of the file " + path);

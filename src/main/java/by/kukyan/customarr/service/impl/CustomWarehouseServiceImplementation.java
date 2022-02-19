@@ -1,11 +1,9 @@
 package by.kukyan.customarr.service.impl;
 
-import by.kukyan.customarr.customaction.impl.CustomArrayActionImplementation;
 import by.kukyan.customarr.entity.CustomArray;
-import by.kukyan.customarr.entity.CustomArrayStatistics;
+import by.kukyan.customarr.entity.CustomArrayParameters;
 import by.kukyan.customarr.entity.Warehouse;
 import by.kukyan.customarr.service.CustomWarehouseService;
-
 
 import java.util.*;
 
@@ -14,34 +12,32 @@ public class CustomWarehouseServiceImplementation implements CustomWarehouseServ
     @Override
     public void putArrayInWarehouse(CustomArray array){
         int id = array.getId();
-        CustomArrayActionImplementation action = CustomArrayActionImplementation.getInstance();
-        OptionalLong sum = action.getSum(array);
-        OptionalInt min = action.getMin(array);
-        OptionalInt max = action.getMax(array);
-        OptionalDouble avg = action.getAvg(array);
-        CustomArrayStatistics statistics = new CustomArrayStatistics();
+        CustomArrayService service = CustomArrayService.getInstance();
+        OptionalLong sum = service.sum(array);
+        OptionalInt min = service.min(array);
+        OptionalInt max = service.max(array);
+        OptionalDouble avg = service.avg(array);
+        CustomArrayParameters parameters = new CustomArrayParameters();
         if(sum.isPresent()) {
-            statistics.setSum(sum.getAsLong());
-            statistics.setAvg(avg.getAsDouble());
-            statistics.setMax(max.getAsInt());
-            statistics.setMin(min.getAsInt());
-            //Присутствует один параметр, присутствуют все
+            parameters.setSum(sum.getAsLong());
+            parameters.setAvg(avg.getAsDouble());
+            parameters.setMax(max.getAsInt());
+            parameters.setMin(min.getAsInt());
         }
         Warehouse warehouse = Warehouse.getInstance();
-        warehouse.putById(id, statistics);
+        warehouse.putById(id, parameters);
     }
 
     @Override
     public void putNumbersInWarehouse(int... args){
-        Random rnd = new Random();
-        CustomArray array = new CustomArray(rnd.nextInt(100000), args);
+        CustomArray array = new CustomArray(CustomArrayIdGenerator.getNextId(), args);
         putArrayInWarehouse(array);
     }
 
 
     @Override
-    public void putListInWarehouse(List<CustomArray> arrayEntities){
-        for (CustomArray array: arrayEntities) {
+    public void putListInWarehouse(List<CustomArray> customArrays){
+        for (CustomArray array: customArrays) {
             putArrayInWarehouse(array);
         }
     }

@@ -37,14 +37,17 @@ public class CustomArray extends CustomCollection{
         if (this == null) return false;
         if (getClass() != obj.getClass()) return false;
         CustomArray otherArray = (CustomArray) obj;
-        if (!(Arrays.equals(otherArray.array, array) || otherArray.getId() != getId()))
+        if (!(Arrays.equals(otherArray.array, array) && otherArray.getId() == getId())) {
             return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        StringBuffer str = new StringBuffer("CustomArray{ array = ");
+        StringBuffer str = new StringBuffer("CustomArray{ id = ");
+        str.append(getId());
+        str.append(", array = ");
         str.append(Arrays.toString(array));
         str.append("}");
         return str.toString();

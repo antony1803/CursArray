@@ -5,15 +5,15 @@ import java.util.OptionalDouble;
 import java.util.OptionalInt;
 import java.util.OptionalLong;
 
-public class CustomArrayStatistics {
+public class CustomArrayParameters {
     private OptionalInt max;
     private OptionalInt min;
     private OptionalDouble avg;
     private OptionalLong sum;
 
-    public CustomArrayStatistics(){}
+    public CustomArrayParameters(){}
 
-    public  CustomArrayStatistics(int newMax, int newMin, double newAvg, long newSum){
+    public CustomArrayParameters(int newMax, int newMin, double newAvg, long newSum){
         max = OptionalInt.of(newMax);
         min = OptionalInt.of(newMin);
         avg = OptionalDouble.of(newAvg);
@@ -56,7 +56,7 @@ public class CustomArrayStatistics {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CustomArrayStatistics temp = (CustomArrayStatistics) o;
+        CustomArrayParameters temp = (CustomArrayParameters) o;
         return Objects.equals(sum, temp.sum) && Objects.equals(max, temp.max) && Objects.equals(min, temp.min) && Objects.equals(avg, temp.avg);
     }
 

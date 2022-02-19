@@ -6,7 +6,7 @@ import by.kukyan.customarr.repository.Specification;
 public class EqualLengthSpecification implements Specification {
     private int length;
 
-    EqualLengthSpecification(int newLength){
+    public EqualLengthSpecification(int newLength){
         length = newLength;
     }
 

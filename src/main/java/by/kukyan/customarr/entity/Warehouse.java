@@ -10,11 +10,11 @@ import java.util.Map;
 public class Warehouse {
     private static final Logger logger = LogManager.getLogger();
     private static Warehouse instance;
-    private final Map<Integer, CustomArrayStatistics> mapStatistics;
+    private final Map<Integer, CustomArrayParameters> mapStatistics;
 
 
     public Warehouse() {
-        this.mapStatistics = new HashMap<Integer, CustomArrayStatistics>();
+        this.mapStatistics = new HashMap<Integer, CustomArrayParameters>();
     }
 
     public static Warehouse getInstance(){
@@ -24,9 +24,9 @@ public class Warehouse {
         return instance;
     }
 
-    public CustomArrayStatistics getById(long arrayId) throws CustomCollectionExcepion {
+    public CustomArrayParameters getById(int arrayId) throws CustomCollectionExcepion {
         if (mapStatistics.containsKey(arrayId)) {
-            CustomArrayStatistics statistics = mapStatistics.get(arrayId);
+            CustomArrayParameters statistics = mapStatistics.get(arrayId);
             return statistics;
         } else {
             logger.error("warehouse does not contain element with id: " + arrayId);
@@ -34,11 +34,11 @@ public class Warehouse {
         }
     }
 
-    public CustomArrayStatistics putById(Integer arrayId, CustomArrayStatistics statistics) {
+    public CustomArrayParameters putById(Integer arrayId, CustomArrayParameters statistics) {
         return mapStatistics.put(arrayId, statistics);
     }
 
-    public CustomArrayStatistics removeById(long arrayId) throws CustomCollectionExcepion{
+    public CustomArrayParameters removeById(long arrayId) throws CustomCollectionExcepion{
         if (mapStatistics.containsKey(arrayId)) {
             return mapStatistics.remove(arrayId);
         } else {
@@ -47,9 +47,9 @@ public class Warehouse {
         }
     }
 
-    public CustomArrayStatistics clearValue(int arrayId) throws CustomCollectionExcepion {
+    public CustomArrayParameters clearValue(int arrayId) throws CustomCollectionExcepion {
         if(mapStatistics.containsKey(arrayId)){
-            return mapStatistics.replace(arrayId, new CustomArrayStatistics());
+            return mapStatistics.replace(arrayId, new CustomArrayParameters());
         } else {
             logger.error("warehouse does not contain element with id: " + arrayId);
             throw new CustomCollectionExcepion("warehouse does not contain element with id: " + arrayId);

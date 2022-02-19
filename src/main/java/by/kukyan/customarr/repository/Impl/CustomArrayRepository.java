@@ -1,6 +1,5 @@
 package by.kukyan.customarr.repository.Impl;
 
-import by.kukyan.customarr.comparator.CustomArrayComparatorById;
 import by.kukyan.customarr.entity.CustomArray;
 import by.kukyan.customarr.repository.Specification;
 import by.kukyan.customarr.repository.CustomCollectionRepository;
@@ -10,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class CustomArrayRepository implements CustomCollectionRepository {
     private static CustomArrayRepository instance;
-    private List<CustomArray> arrays;
+    private ArrayList<CustomArray> arrays;
 
     public CustomArrayRepository() {
         arrays = new ArrayList<>();
@@ -57,6 +56,10 @@ public class CustomArrayRepository implements CustomCollectionRepository {
         arrays.set(index, customArray);
     }
 
+    public ArrayList<CustomArray> getRepository(){
+        return arrays;
+    }
+
     @Override
     public List<CustomArray> querry(Specification specification) {
         List<CustomArray> list = arrays.stream().
@@ -66,10 +69,10 @@ public class CustomArrayRepository implements CustomCollectionRepository {
     }
 
     @Override
-    public List<CustomArray> sort(Comparator<CustomArray> comparator) {
+    public ArrayList<CustomArray> sort(Comparator<CustomArray> comparator) {
         List<CustomArray> list = arrays.stream()
                 .sorted(comparator)
                 .collect(Collectors.toList());
-        return list;
+        return new ArrayList<>(list);
     }
 }

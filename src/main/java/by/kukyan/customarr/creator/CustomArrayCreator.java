@@ -13,6 +13,9 @@ public class CustomArrayCreator {
     }
 
     public static CustomArray createRandomArray (int lengthBoundary, int elementBoundary){
+        if(lengthBoundary <= 0){
+            return new CustomArray();
+        }
         Random rnd = new Random();
         int length = rnd.nextInt(lengthBoundary);
         int id = CustomArrayIdGenerator.getNextId();

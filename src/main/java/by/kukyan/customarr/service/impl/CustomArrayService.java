@@ -1,6 +1,6 @@
 package by.kukyan.customarr.service.impl;
 
-import by.kukyan.customarr.customaction.impl.CustomArraySortImplementation;
+
 import by.kukyan.customarr.service.CustomCollectionService;
 import by.kukyan.customarr.entity.CustomCollection;
 
@@ -9,6 +9,14 @@ import java.util.OptionalInt;
 import java.util.OptionalLong;
 
 public class CustomArrayService implements CustomCollectionService {
+    private static CustomArrayService instance;
+
+    public static CustomArrayService getInstance(){
+        if(instance == null){
+            return new CustomArrayService();
+        }
+        return instance;
+    }
 
     @Override
     public OptionalDouble avg(CustomCollection customCollection) {
@@ -87,7 +95,6 @@ public class CustomArrayService implements CustomCollectionService {
         }
     }
 
-
     @Override
     public OptionalInt min(CustomCollection customCollection) {
         int[] array = customCollection.getArray();
@@ -108,8 +115,26 @@ public class CustomArrayService implements CustomCollectionService {
     public void bubbleSort(CustomCollection customCollection) {
         int[] array = customCollection.getArray();
         boolean hasSwitched;
-        CustomArraySortImplementation.bubbleCycle(array);
+        bubbleCycle(array);
         customCollection.setArray(array);
+    }
+
+    public static void bubbleCycle(int[] array) {
+        boolean unsorted;
+        for (int i = array.length; i > 0; i--) {
+            unsorted = false;
+            for (int j = 0; j < i - 1; j++) {
+                if (array[j] > array[j + 1]) {
+                    int temp = array[j];
+                    array[j] = array[j + 1];
+                    array[j + 1] = temp;
+                    unsorted = true;
+                }
+            }
+            if (!unsorted) {
+                break;
+            }
+        }
     }
 
     @Override
