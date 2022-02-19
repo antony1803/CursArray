@@ -1,12 +1,14 @@
 package by.kukyan.customarr.service.impl;
 
 
+import by.kukyan.customarr.entity.CustomArray;
 import by.kukyan.customarr.service.CustomCollectionService;
 import by.kukyan.customarr.entity.CustomCollection;
 
 import java.util.OptionalDouble;
 import java.util.OptionalInt;
 import java.util.OptionalLong;
+import java.util.stream.IntStream;
 
 public class CustomArrayService implements CustomCollectionService {
     private static CustomArrayService instance;
@@ -94,6 +96,7 @@ public class CustomArrayService implements CustomCollectionService {
             return OptionalLong.of(sum);
         }
     }
+
 
     @Override
     public OptionalInt min(CustomCollection customCollection) {
@@ -208,5 +211,21 @@ public class CustomArrayService implements CustomCollectionService {
         customCollection.setArray(array);
     }
 
+    @Override
+    public CustomArray replace(CustomArray customArray, int elementToChange, int elementForExchange) {
+        if (customArray.getArrayLength() == 0){
+            return customArray;
+        }
+        CustomArray newCustomArray;
+        int[] array = customArray.getArray();
+        IntStream replacementStream = IntStream.of(array).map(el -> {
+            if (el == elementToChange) {
+                el = elementForExchange;
+            }
+            return el;
+        });
+        newCustomArray = new CustomArray(CustomArrayIdGenerator.getNextId(), replacementStream.toArray());
+        return newCustomArray;
+    }
 
 }

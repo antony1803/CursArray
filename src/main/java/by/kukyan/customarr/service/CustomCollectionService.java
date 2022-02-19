@@ -1,5 +1,6 @@
 package by.kukyan.customarr.service;
 
+import by.kukyan.customarr.entity.CustomArray;
 import by.kukyan.customarr.entity.CustomCollection;
 import java.util.OptionalDouble;
 import java.util.OptionalInt;
@@ -16,4 +17,5 @@ public interface CustomCollectionService {
     void insertionSort(CustomCollection customCollection);
     void selectionSort(CustomCollection customCollection);
     OptionalLong sum(CustomCollection customCollection);
+    CustomArray replace(CustomArray customArray, int elementToChange, int elementForExchange);
 }
