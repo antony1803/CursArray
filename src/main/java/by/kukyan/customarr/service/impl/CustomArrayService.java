@@ -2,6 +2,7 @@ package by.kukyan.customarr.service.impl;
 
 
 import by.kukyan.customarr.entity.CustomArray;
+import by.kukyan.customarr.entity.Warehouse;
 import by.kukyan.customarr.service.CustomCollectionService;
 import by.kukyan.customarr.entity.CustomCollection;
 
@@ -68,7 +69,6 @@ public class CustomArrayService implements CustomCollectionService {
 
     @Override
     public OptionalInt max(CustomCollection customCollection) {
-
         int[] array = customCollection.getArray();
         if (array.length == 0) {
             return OptionalInt.empty();
@@ -117,7 +117,6 @@ public class CustomArrayService implements CustomCollectionService {
     @Override
     public void bubbleSort(CustomCollection customCollection) {
         int[] array = customCollection.getArray();
-        boolean hasSwitched;
         bubbleCycle(array);
         customCollection.setArray(array);
     }
@@ -146,22 +145,16 @@ public class CustomArrayService implements CustomCollectionService {
         int key;
         int lastIndex;
         int firstIndex;
-
         for (int i = 0; i < array.length; i++) {
-
             key = array[i];
             lastIndex = i;
             firstIndex = 0;
-
             lastIndex = binarySearch(firstIndex, lastIndex, array, key);
-
             for (int j = i; j > lastIndex; j--) {
                 array[j] = array[j - 1];
             }
-
             array[lastIndex] = key;
             customCollection.setArray(array);
-
         }
     }
 
@@ -169,40 +162,31 @@ public class CustomArrayService implements CustomCollectionService {
         int last;
         int first;
         int middle;
-
         last = lastIndex;
         first = firstIndex;
-
         while (first < last){
-
             middle = first + (last - first)/ 2;
-
             if (element < array[middle]){
                 last = middle;
             }else{
                 first = middle + 1;
             }
         }
-
         return first;
     }
 
     @Override
     public void selectionSort(CustomCollection customCollection) {
         int[] array = customCollection.getArray();
-
         int pos;
         int temp;
-
         for (int i = 0; i < array.length; i++) {
-
             pos = i;
             for (int j = i + 1; j < array.length; j++) {
                 if (array[j] < array[pos]) {
                     pos = j;
                 }
             }
-
             temp = array[pos];
             array[pos] = array[i];
             array[i] = temp;
@@ -216,7 +200,6 @@ public class CustomArrayService implements CustomCollectionService {
         if (customArray.getArrayLength() == 0){
             return customArray;
         }
-        CustomArray newCustomArray;
         int[] array = customArray.getArray();
         IntStream replacementStream = IntStream.of(array).map(el -> {
             if (el == elementToChange) {
@@ -224,8 +207,9 @@ public class CustomArrayService implements CustomCollectionService {
             }
             return el;
         });
-        newCustomArray = new CustomArray(CustomArrayIdGenerator.getNextId(), replacementStream.toArray());
-        return newCustomArray;
+        customArray.setArray(replacementStream.toArray());
+        customArray.notifyObserver();
+        return customArray;
     }
 
 }

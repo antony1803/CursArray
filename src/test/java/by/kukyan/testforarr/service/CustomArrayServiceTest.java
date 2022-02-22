@@ -1,6 +1,11 @@
 package by.kukyan.testforarr.service;
 
 import by.kukyan.customarr.entity.CustomArray;
+import by.kukyan.customarr.entity.CustomArrayParameters;
+import by.kukyan.customarr.entity.Warehouse;
+import by.kukyan.customarr.exception.CustomCollectionExcepion;
+import by.kukyan.customarr.observer.impl.CustomArrayObserver;
+import by.kukyan.customarr.repository.Impl.CustomArrayRepository;
 import by.kukyan.customarr.service.impl.CustomArrayService;
 
 import org.testng.Assert;
@@ -12,8 +17,10 @@ import java.util.OptionalInt;
 import java.util.OptionalLong;
 
 public class CustomArrayServiceTest {
-    CustomArrayService arrayService;
-    CustomArray array;
+    private static CustomArrayService arrayService;
+    private static Warehouse wh = Warehouse.getInstance();
+    private static CustomArrayRepository cr = CustomArrayRepository.getInstance();
+    private CustomArray array;
 
     @BeforeMethod
     public void setUp(){
@@ -88,9 +95,12 @@ public class CustomArrayServiceTest {
     }
 
     @Test
-    public void replacementTest(){
-        CustomArray expected = new CustomArray(100001, 10, 3, -2, 13, -45);
-        CustomArray actual = arrayService.replace(array, 12, 10);
-        Assert.assertEquals(actual, expected);
+    public void replacementTest() throws CustomCollectionExcepion {
+        wh.putById(array.getId(), new CustomArrayParameters(13, -45, -3.8, -19));
+        cr.addArray(array);
+        array.attach(new CustomArrayObserver());
+        CustomArrayParameters expected = new CustomArrayParameters(13, -45, -1.4, -7);
+        arrayService.replace(array, -2, 10);
+        Assert.assertEquals(wh.getById(array.getId()), expected);
     }
 }

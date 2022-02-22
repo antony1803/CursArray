@@ -38,7 +38,7 @@ public class Warehouse {
         return mapStatistics.put(arrayId, statistics);
     }
 
-    public CustomArrayParameters removeById(long arrayId) throws CustomCollectionExcepion{
+    public CustomArrayParameters removeById(int arrayId) throws CustomCollectionExcepion{
         if (mapStatistics.containsKey(arrayId)) {
             return mapStatistics.remove(arrayId);
         } else {
